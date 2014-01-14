@@ -1,0 +1,17 @@
+
+<% @posts.each do |post| %>
+<div align="left"  width="600">
+   <h2> <%= link_to post.title, post%></h2>
+   	<!--<i>--<%= time_ago_in_words post.created_at %> ago </i>-->
+   
+   <p>
+     <%= truncate post.text %>
+   </p>
+</div> <br/>
+<% end %>
+
+<h2 align="center"><font color="red">
+   <%= link_to "创建新博客", new_post_path%>
+</font>
+</h2>
+

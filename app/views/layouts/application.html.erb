@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>活在當下的博客</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= auto_discovery_link_tag :atom, "/posts.atom" %>
+
+<script language=javascript>
+function showtime()//显示时间
+{
+var weekday=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+var nowtime=new Date();
+var year=nowtime.getFullYear();//年
+var month=nowtime.getMonth()+1;//月，从 0 开始，所以加 1
+var date=nowtime.getDate();//日
+var day=nowtime.getDay();//星期几，0代表周日
+var hours=nowtime.getHours();
+var minutes=nowtime.getMinutes();
+var seconds=nowtime.getSeconds();
+var date=year+"年"+month+"月"+date+"日"+weekday[day];
+var time=(hours>=10?hours:("0"+hours))+((minutes<10)?":0":":")+minutes+((seconds<10)?":0":":")+seconds;
+document.te_xiao.date.value=date+" "+time;
+document.title="活在當下 " +time;
+//window.open("http://www.baidu.com");//死循环 hehe
+setTimeout("showtime()",1000);
+}
+
+var hou=0,min=0,sec=0;//停留时间计算
+function staytime()
+{
+sec++;
+if(sec==60) {sec=0;min++;}
+if(min==60) {min=0;hou++;}
+document.te_xiao.stay_time.value="停留时间："+(hou>=10?hou:("0"+hou))+"时"+(min>=10?min:("0"+min))+"分"+(sec>=10?sec:("0"+sec))+"秒";
+setTimeout("staytime()",1000);
+}
+
+
+</script>
+
+</head>
+<body class="bg"  onload="showtime(); staytime(); inverttime();pic_blink();pic_slide();browser_status()">
+<h1 align="center"><font color="white">活在當下 的博客</font></h1>
+
+<form name="te_xiao">
+<input type="text" name="date" size=25 readonly="readonly" style="color:white;background-color:blue;border-width:9; font-size:17px"><br/>
+<input type="text" name="stay_time" size=20 readonly="readonly" style="color:white;background-color:blue;border-width:9; font-size:17px"></br>
+</form>
+<embed src="http://ocw.guet.edu.cn/dept7/new/KrocpStudio/music/uploadfile/xy.mp3" hidden="true" loop="-1"></embed>
+
+<%= yield %>
+
+</body>
+</html>
